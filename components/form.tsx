@@ -109,9 +109,9 @@ const Form = () => {
               : data.amount +
                 ' ' +
                 data.from.toUpperCase() +
-                ' w przeliczeniu na ' +
+                ' in ' +
                 data.to.toUpperCase() +
-                ` to:`}
+                ` is:`}
           </span>
           <span className='font-black text-[90px] gradient'>
             {data.res !== 0 ? (
