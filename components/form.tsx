@@ -26,6 +26,13 @@ const Form = () => {
     event.preventDefault();
     setData((prevData) => ({ ...prevData, res: 0 }));
     const amount = Number(data.amount);
+    if (amount <= 0) {
+      setData((prevData) => ({
+        ...prevData,
+        error: 'Ammount must be a positive number',
+      }));
+      return null;
+    }
     const options = {
       method: 'GET',
       url: 'https://currency-converter18.p.rapidapi.com/api/v1/convert',
@@ -71,13 +78,16 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <div className=''>
       <div className='flex justify-center'>
-        <form onSubmit={handleSubmit} className='flex justify-center'>
+        <form
+          onSubmit={handleSubmit}
+          className='flex justify-center flex-col items-center md:flex-row w-[80%]'
+        >
           <input
             type='text'
             placeholder='From: USD'
-            className='w-[20%] my-5 mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
+            className='w-[100%] md:w-[20%] my-2 md:my-5 md:mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
             onChange={handleChangeFrom}
             value={data.from.toUpperCase()}
             required
@@ -85,7 +95,7 @@ const Form = () => {
           <input
             type='text'
             placeholder='To: EUR'
-            className='w-[20%] my-5 mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
+            className='w-[100%] md:w-[20%] my-2 md:my-5 md:mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
             onChange={handleChangeTo}
             value={data.to.toUpperCase()}
             required
@@ -93,12 +103,17 @@ const Form = () => {
           <input
             type='number'
             placeholder='Amount: 20'
-            className='w-[20%] my-5 mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
+            className='w-[100%] md:w-[20%] my-2 md:my-5 md:mr-7 py-1 px-1 rounded-md text-black focus:border-0 focus:ring focus:ring-blue-300 outline-none border border-slate-400'
             onChange={handleChangeAmount}
             value={data.amount}
             required
           />
-          <button type='submit'>Check</button>
+          <button
+            type='submit'
+            className='py-2  bg-indigo-500 text-white rounded-lg w-full md:w-[10%] hover:bg-indigo-700 transition-colors'
+          >
+            Check
+          </button>
         </form>
       </div>
       <div className='flex justify-center pt-8 font-normal flex-wrap'>
@@ -113,7 +128,7 @@ const Form = () => {
                 data.to.toUpperCase() +
                 ` is:`}
           </span>
-          <span className='font-black text-[90px] gradient'>
+          <span className='font-black text-[60px] md:text-[90px] gradient'>
             {data.res !== 0 ? (
               data.res + ' ' + data.constTo.toUpperCase()
             ) : (
